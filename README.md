@@ -72,7 +72,6 @@ train$revol_util <- as.numeric(sub("%", "", train$revol_util))
 
 ## Analyzing Predictive Power of Variables  
 
-<br>
 #### Lending Club Grades and Subgrades  
 All types of borrowers are using peer-to-peer lending for a variety of purposes. This raises the question of how to determine appropriate interest rates given the varying levels of risk across borrowers. Luckily for us, Lending Club handles this for us. They use an algorithm to determine a borrower's level of risk, and then set the interest rates according to the level of risk. Specifically, Lending Club maps borrowers to a series of grades [A-F] and subgrades [A-F][1-5] based on their risk profile.  Loans in each subgrade are then given appropriate interest rates. The specific rates will change over time according to market conditions, but generally they will fall within a tight range for each subgrade. 
 
@@ -92,16 +91,16 @@ barplot(prop_subgrade, main = "Loan Performance by Sub Grade", xlab = "SubGrade"
 
 We can see from the chart below that rates of default steadily increase as the loan grades worsen from A to G, as expected.
 
-![Performance by Grade](https://r-variawa.rstudio.cloud/02669d4310ad4b4fb2fb87599634d6d7/file_show?path=%2Fcloud%2Fproject%2Flending-club%2Fby_grade.png)
+<img src="./image/"by_grade.png/>
 
 We see a similar pattern for the subgrades, although the trend begins to weaken across the G1-G5 subgrades. On further investigation, I found that there are only a few hundred data points for each of these subgrades, in contrast to thousands of data points for the A-F subgrades, and these differences are not large enough to be significant.
 
-![Performance by Subgrade](https://r-variawa.rstudio.cloud/02669d4310ad4b4fb2fb87599634d6d7/file_show?path=%2Fcloud%2Fproject%2Flending-club%2Fby_subgrade.png) 
+<img src="./image/"by_subgrade.png/>
 
 In general, it looks like the Lending Club grading system does a pretty great job of predicting ultimate loan performance, but let's check out some of the other available data to see what other trends we might be able to find in the data.
 
-<br>
-####Home Ownership
+
+#### Home Ownership
 
 The Lending Club data has 3 main classifications for home ownership: mortgage (outstanding mortgage payment), own (home is owned outright), and rent. I would expect those with mortgages to default less frequently than those who rent, both because there are credit requirements to get a mortgage and because those with mortgages might in general tend to be more established. Let's see whether this is actually the case:  
 
@@ -142,8 +141,8 @@ The p-value of the first test was $$6.377\*10^-12$$ and the p-value for the seco
 
 **Note:** for the remaining analysis, the code for each variable becomes a bit repetitive, so in the interest of minimizing the length of this post I will present only the results. If you are interested to see the actual code, you will find it in the appendix at the bottom of this post.  
 
-<br>
-####Debt to Income Ratio
+
+#### Debt to Income Ratio
 Debt to income ratio indicates the ratio between a borrowers monthly debt payment and monthly income. This was originally formatted as a continuous numerical variable, but I bucketed it into 5% increments to better visualize the effect on loan performance. As we might expect, there is a steady increase in the percentage of non-performing loans as DTI increases, reflecting the constraints that increased debt put onto borrower ability to repay:  
 
 |               | 0% - 5% | 5% - 10% | 10% - 15% | 15% - 20% | 20% - 25% | 25% - 30% | 30% - 35% |
@@ -152,8 +151,8 @@ Debt to income ratio indicates the ratio between a borrowers monthly debt paymen
 | Performing    | 91.92   | 91.69    | 90.77     | 89.63     | 87.94     | 87.34     | 86.25     |
 
 
-<br>
-####Revolving Utilization Percent
+
+#### Revolving Utilization Percent
 Revolving utilization percent is the portion of a borrower's revolving credit limit (i.e. credit card limit) that they actually are using at any given point. For example, if a borrower's total credit limit is USD15,000 and their outstanding balance is USD1,500 their utilization rate would be 10%. We can see below that the percentage of non-performing loans steadily increases with utilization rate. Borrowers with high utilization rates are more likely to have high fixed credit card payments which might affect their ability to repay their loans. Also, a high utilization rate often reflects a lack of other financing options, with borrowers turning to peer-to-peer lending as a last resort. This is in contrast to those borrowers with low utilization rates, who may be using peer-to-peer lending opportunistically to pursue lower interest payments.  
 
 |               | 0% - 20% | 20% - 30% | 30% - 40% | 40% - 50% | 50% - 60% | 60% - 70% | 70% - 80% | 80% +  |
@@ -162,8 +161,8 @@ Revolving utilization percent is the portion of a borrower's revolving credit li
 | Performing    | 92.68    | 91.73     | 91.07     | 90.72     | 90.32     | 89.06     | 88.43     | 87.09  |
 
 
-<br>
-####Loan Purpose
+
+#### Loan Purpose
 Loan purpose refers to the borrower's stated reason for taking out the loan.  We see below that credit card and debt consolidation tend to have better performance, along with home improvement, cars, and other major purchases. Luxury spending on vacations and weddings and unexpected medical and moving expenses generally have worse performance. Small business loans perform very poorly, perhaps reflecting the fact that those borrowers unable to get bank financing for their small business may have poor credit or business plans that aren't fully developed.  
 
 |                 |  NonPerforming  |  Performing     |
@@ -182,8 +181,8 @@ Loan purpose refers to the borrower's stated reason for taking out the loan.  We
 |  Credit Card    | 8.12            | 91.88           |
 
 
-<br>
-####Inquiries in the Past 6 Months 
+
+#### Inquiries in the Past 6 Months 
 Number of inquiries refers to the number of times a borrower's credit report is accessed by financial institutions, which generally happens when the borrower is seeking a loan or credit line. More inquiries leads to higher rates of nonperformance, perhaps indicating that increased borrower desperation to access credit might highlight poor financial health. Interestingly, we see an increase in loan performance in the 4+ inquiries bucket. These high levels of inquiries may reflect financially savvy borrowers shopping around for mortgage loans or credit cards.  
 
 |               | 0     | 1     | 2     | 3     | 4+    |
@@ -192,8 +191,8 @@ Number of inquiries refers to the number of times a borrower's credit report is 
 | Performing    | 91.23 | 88.95 | 86.92 | 84.87 | 85.87 |
 
 
-<br>
-####Number of Total Accounts
+
+#### Number of Total Accounts
 A larger number of total accounts indicates a longer credit history and a high level of trust between the borrower and financial institutions, both of which point to financial health and lower rates of default. We see steady increases in the rates of performing loans as the number of accounts increases from 7 to around 20, but diminishing effects after that.  
 
 |               | <= 7  | 8 - 12 | 13 - 17 | 18 - 22 | 23+   |
@@ -202,8 +201,8 @@ A larger number of total accounts indicates a longer credit history and a high l
 | Performing    | 86.94 | 88.37  | 88.85   | 89.35   | 90.05 |  
 
 
-<br>
-####Annual Income
+
+#### Annual Income
 As we might expect, the higher a borrower's annual income the more likely they are to be able to repay their loans.  Below I've broken the income data into quintiles, and we can see that those in the top 20% of annual incomes (USD95000 +) are approximately 6% more likely to be performing borrowers than those in the bottom 20% (less than USD42000).  
 
 |               | 0% - 20%  | 20% - 40%       | 40% - 60%       | 60% - 80%       | 80% - 100%  |
@@ -213,8 +212,8 @@ As we might expect, the higher a borrower's annual income the more likely they a
 | Performing    | 86.63     | 88.43           | 89.43           | 91.01           | 92.49       |
 
 
-<br>
-####Loan Amount
+
+#### Loan Amount
 As the amount borrowed increases, we see increasing rates of nonperforming loans. The difference between the first two buckets is only around 1% (and the intra-bucket differences are very small), but we see a larger decrease in loan quality in the USD30,000 - USD35,000 bucket. Noting that the Lending Club maximum loan is USD35,000, this may indicate particularly desperate borrowers who are maximizing their possible borrowing.    
 
 |               | $0 - $15000 | $15000 - $30000 | $30000 - $35000 |
@@ -223,8 +222,8 @@ As the amount borrowed increases, we see increasing rates of nonperforming loans
 | Performing    | 90.00       | 89.05           | 87.21           |
 
 
-<br>
-####Employment Length
+
+#### Employment Length
 We'd expect those who have been employed longer to be more stable, and thus less likely to default. Looking into the data, 3 key groups emerged: the unemployed, those employed less than 10 years, and those employed for 10+ years:  
 
 |               | None   | < 10 years | 10+ years |
@@ -233,8 +232,8 @@ We'd expect those who have been employed longer to be more stable, and thus less
 | Performing    | 87.83  | 89.16      | 90.51     |
 
 
-<br>
-####Delinquencies in the Past 2 Years  
+
+#### Delinquencies in the Past 2 Years  
 The number of delinquencies in the past 2 years indicates the number of times a borrower has been behind on payments. I combined all values 3 or larger into a single bucket for analysis, as this was a long right-tailed distribution. Interestingly, those with a single delinquency seem to perform more often than those with none. In general however, the differences between 0, 1, and 2 delinquencies are relatively small, while those with greater than 3 show a significant decrease in performance.  
 
 |               | 0     | 1     | 2     | 3+    |
@@ -243,8 +242,8 @@ The number of delinquencies in the past 2 years indicates the number of times a 
 | Performing    | 89.55 | 89.78 | 89.26 | 88.22 |
 
 
-<br>
-####Number of Open Accounts
+
+#### Number of Open Accounts
 Unlike the number of total accounts above, which we saw to be quite significant, the number of open accounts variable was not a particularly strong indicator:  
 
 |               | <= 5  | 6 - 10 | 11 - 15 | 16+   |
@@ -253,8 +252,8 @@ Unlike the number of total accounts above, which we saw to be quite significant,
 | Performing    | 89.17 | 89.63  | 89.51   | 89.60 |
 
 
-<br>
-####Verified Income Status
+
+#### Verified Income Status
 Lending Club categorizes income verification into three statuses: not verified, source verified, and verified. Verified income means that Lending Club independently verified both the source and size of reported income, source verified means that they verified only the source of the income, and not verified means there was no independent verification of the reported values. Interestingly, we see that as income verification increases, the loan performance actually worsens. During the mortgage crisis, non-verified "no-doc" loans were among the worst performing, so the reversal here is interesting. This likely reflects the fact that Lending Club only verifies those borrowers who seem to be of worse credit quality, so there may be [confounding variables](http://en.wikipedia.org/wiki/Confounding) present here.  
 
 |               | Not Verified | Source Verified | Verified |
@@ -263,8 +262,8 @@ Lending Club categorizes income verification into three statuses: not verified, 
 | Performing    | 90.76        | 89.51           | 88.74    |
 
 
-<br>
-####Number of Public Records
+
+#### Number of Public Records
 Public records generally refer to bankruptcies, so we would expect those with more public records to show worse performance. Actually, performance increases as we move from 0 to 1 to 2 public records. This possibly indicates stricter lending standards from Lending Club on those borrowers with public records:  
 
 |               | 0     | 1     | 2+    |
@@ -272,8 +271,8 @@ Public records generally refer to bankruptcies, so we would expect those with mo
 | NonPerforming | 10.61 | 9.00  | 8.72  |
 | Performing    | 89.39 | 91.00 | 91.28 |
 
-<br>
-####Variables that were not significant:
+
+#### Variables that were not significant:
 - Months since last delinquency
 - Months since last major derogatory note
 - Collections previous 12 months (too few data points on which to make any conclusions or form predictions)
