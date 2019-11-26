@@ -91,11 +91,11 @@ barplot(prop_subgrade, main = "Loan Performance by Sub Grade", xlab = "SubGrade"
 
 We can see from the chart below that rates of default steadily increase as the loan grades worsen from A to G, as expected.
 
-<img src="./image/"by_grade.png/>
+<img src="./image/by_grade.png"/>
 
 We see a similar pattern for the subgrades, although the trend begins to weaken across the G1-G5 subgrades. On further investigation, I found that there are only a few hundred data points for each of these subgrades, in contrast to thousands of data points for the A-F subgrades, and these differences are not large enough to be significant.
 
-<img src="./image/"by_subgrade.png/>
+<img src="./image/by_subgrade.png"/>
 
 In general, it looks like the Lending Club grading system does a pretty great job of predicting ultimate loan performance, but let's check out some of the other available data to see what other trends we might be able to find in the data.
 
